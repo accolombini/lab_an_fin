@@ -43,7 +43,7 @@ annual_returns = returns.mean() * 250
 print('\nExibe o retorno anual das acoes\n')
 print(annual_returns)
 
-# REtorno anual desvio padrão
+# Retorno anual com três casas decimais
 
 np.dot(annual_returns, weights)
 pfolio_1 = str(round(np.dot(annual_returns, weights), 5) * 100) + "%"
