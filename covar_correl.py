@@ -5,21 +5,30 @@ import matplotlib.pyplot as plt
 
 
 tickers = ['PG', 'BEI.DE']
-sec_returns = pd.DataFrame()
+sec_data = pd.DataFrame()
 for t in tickers:
-    sec_returns[t] = wb.DataReader(
+    sec_data[t] = wb.DataReader(
         t, data_source='yahoo', start='2000-01-01')['Adj Close']
 
 print('\nDados da carteira o importante e que todos os tickets tenham mesma quantidade de informacao')
-print(sec_returns.info())
+print(sec_data.info())
 
 print('\nOlhando para os dados para uma inspecao aos dados reais')
-print(sec_returns.head())
-print(sec_returns.tail())
+print(sec_data.head())
+print(sec_data.tail())
+
+# Estaremos analisado cada ativo individualmente, para estes casos, o retorno logaritmico e mais interessante
+
+print('Calculo do retorno logaritmico, mais interessante para este tipo de analise')
+
+sec_returns = np.log(sec_data/sec_data.shift(1))
+print('O retorno logaritmico dos ativos e: \n')
+print(sec_returns)
 
 # O método var() do pandas calcula a variância diretamente
 
 PG_var = sec_returns['PG'].var()
+
 print('\nVariancia PG dia: ', PG_var)
 BEI_var = sec_returns['BEI.DE'].var()
 print('Variancia BEI dia: ', BEI_var)
@@ -50,4 +59,4 @@ print('\nMatriz de correlacao')
 print(corr_matrix)
 
 # Nunca se esqueca => um investidor esta interessado no retorno das acoes e nao nos precos das acoes
-# Assim, cabe ao analista a interpretacao dos resultados, isso nao e competência do Python, ok
+# Assim, cabe ao analista a interpretacao dos resultados, isso nao e competência do Python, ok!
