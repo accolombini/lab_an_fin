@@ -18,5 +18,6 @@ print('Média diária logaritmica calculada     ', log_return_d)
 log_return_a = PG['log_return'].mean() * 250 # Cálculo da média logaritmica anual daí os 250 dias
 print('Média anual logaritmica calculada      ', log_return_a)
 
-print ('Média anual logaritmica em porcentagem ', str(round(log_return_a, 5) * 100) + ' %')     # Cálculo da média anual 
-                                                                                                # em porcentagem e 5 casas
+# Cálculo da média anual um pouco mais legivel
+
+print ('Média anual logaritmica em porcentagem ', str(round(log_return_a, 5) * 100) + ' %')     
