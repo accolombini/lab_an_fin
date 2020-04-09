@@ -1,5 +1,5 @@
-# Fronteira Eficiente de Markowitz --> Parte 1
-# Nesta fase estamos desenvolvendo principalmente um processo para gerar valores randomicos que somem 1 para sua carteira . Até aqui não houve preocupação com o número de iterações, na prática, deve-se executar N vezes até que se encontre o ponto ótimo de distrubuição de ativos para sua carteira
+# Fronteira Eficiente de Markowitz --> Parte 2
+# Nesta fase estamos desenvolvendo principalmente um processo para iteirar um número siginificativo de vezes nossa carteira, no caso aqui serão 1.000 iteirações, na prática você poderá extrapolar isso a um valor que se sinta confortável e seguro
 
 import numpy as np
 import pandas as pd
@@ -60,3 +60,41 @@ weights /= np.sum(weights)
 print('Matriz com os pesos: ', weights)
 print('A soma correta dos pesos e: ', weights[0] + weights[1])
 print('Teste soma igual a 1: ', (weights[0] + weights[1]) == 1)
+
+# Retorno esperado do Portfolio => observe o uso do método .sum() do numpy que permite a soma de objetos multidimensionais
+print('\nValor anaul medio esperado para o portifolio: ', np.sum(weights * log_returns.mean()) * 250)
+# Variancia esperada do Portfolio
+print('\Variancia padrao anual esperado para o portifolio: ', np.dot(weights.T, np.dot(log_returns.cov() * 250, weights)))
+
+# Volatilidade esperada do Portifolio
+print('\nVolatilidade anual do Portfolio: ', np.sqrt(np.dot(weights.T, np.dot(log_returns.cov() * 250, weights))))
+'''
+# Vamos agora preparar as 1.000 iteracoes -> posteriormente estaremos plotando esse grafico, por hora fique atento ao processo => Estamos aqui considerando 1.000 diferentes combinacoes dos mesmos dois ativos de nossa carteira => A ideia sera comparar os portfolios e encontrar o mais eficiente
+pfolio_returns = []
+pfolio_volatilities = []
+for x in range(1000):
+    weights = np.random.random(num_assets)
+    weights /= np.sum(weights)
+    pfolio_returns.append(np.sum(weights * log_returns.mean()) * 250)
+    pfolio_volatilities.append(np.sqrt(np.dot(weights.T, np.dot(log_returns.cov() * 250, weights))))
+
+print('\nPrimeira forma de tratamento do dados -> vamos gerar duas listas')
+print(pfolio_returns, pfolio_volatilities)
+
+# Feito o passo acima, vamos agora melhorar sua exibição explorando mais um pouco o numpy => observe
+
+pfolio_returns = []
+pfolio_volatilities = []
+for x in range(1000):
+    weights = np.random.random(num_assets)
+    weights /= np.sum(weights)
+    pfolio_returns.append(np.sum(weights * log_returns.mean()) * 250)
+    pfolio_volatilities.append(np.sqrt(np.dot(weights.T, np.dot(log_returns.cov() * 250, weights))))
+
+# Aqui esta o que muda <=> fique atento
+pfolio_returns = np.array(pfolio_returns)
+pfolio_volatilities = np.array(pfolio_volatilities)
+
+print('\nSegunda forma usada para tratar os dados -> vamos gerar duas listas')
+print(pfolio_returns, pfolio_volatilities)
+'''
