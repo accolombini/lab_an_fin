@@ -1,5 +1,5 @@
-# Fronteira Eficiente de Markowitz --> Parte 2
-# Nesta fase estamos desenvolvendo principalmente um processo para iteirar um número siginificativo de vezes nossa carteira, no caso aqui serão 1.000 iteirações, na prática você poderá extrapolar isso a um valor que se sinta confortável e seguro
+# Fronteira Eficiente de Markowitz --> Parte 3
+# Nesta fase finalmente iremos plotar o grafico da fronteira eficiente de Markowitz
 
 import numpy as np
 import pandas as pd
@@ -100,3 +100,24 @@ pfolio_volatilities = np.array(pfolio_volatilities)
 
 print('\nSegunda forma usada para tratar os dados -> vamos gerar duas listas')
 print(pfolio_returns, pfolio_volatilities)
+
+# Finalmente vamos plotar a fronteira Eficiente de Markowitz e => Isso vale um premio Nobel em Financas <-> vamos a ele
+
+print('\nVamos comecar criando um objeto do tipo DataFrame contendo duas colunas. Uma coluna para os Retornos e a outra para as respectivas Volatilidades => Esses dados serao chamados de Portifolio')
+
+# Observe que usaremos um dicionario (chave/valor) para compor a estrutura do nosso Portfolio
+
+portfolios = pd.DataFrame({'Return': pfolio_returns, 'Volatility': pfolio_volatilities})
+
+print('\nVamos olhar um pouco mais de perto uma amostra destes dados => head')
+print(portfolios.head())
+print('\nVamos olhar um pouco mais de perto uma amostra destes dados => tail')
+print(portfolios.tail())
+
+print('\nObserve graficamente a fronteira de Markowitz')
+
+front_ef_mark = portfolios.plot(x='Volatility', y='Return', kind='scatter', figsize=(10,6))
+plt.title('Fronteira Eficiente de Marcowitz')
+plt.xlabel('ExpectedVolatility')
+plt.ylabel('Expected Return')
+plt.show(front_ef_mark)
